@@ -7,3 +7,7 @@ function getRandomIntInclusive(min, max) {
 }
 
 const checkTheLengthOfTheString = (verifiableString, maxLength) => verifiableString.length < maxLength + 1;
+
+getRandomIntInclusive(0,5);
+
+checkTheLengthOfTheString('qwerty', 10);
