@@ -1,13 +1,12 @@
 function getRandomIntInclusive(min, max) {
-  if (min > -1 && max > -1) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
-  }
+  const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
+  const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
+  const result = Math.random() * (upper - lower + 1) + lower;
+  return Math.floor(result);
 }
 
-const checkTheLengthOfTheString = (verifiableString, maxLength) => verifiableString.length < maxLength + 1;
+const checkStringLength = (string, maxLength) => string.length <= maxLength;
 
 getRandomIntInclusive(0,5);
 
-checkTheLengthOfTheString('qwerty', 10);
+checkStringLength('qwerty', 10);
