@@ -41,23 +41,55 @@ function getRandomIntInclusive(min, max) {
   return Math.floor(result);
 }
 
+function createRandomIdFromRangeGenerator(min, max) {
+  const previousValues = [];
+
+  return function () {
+    let currentValue = getRandomIntInclusive(min, max);
+    if (previousValues.length >= (max - min + 1)) {
+      // console.error(`Перебраны все числа из диапазона от ${  min  } до ${  max}`);
+      return null;
+    }
+    while (previousValues.includes(currentValue)) {
+      currentValue = getRandomIntInclusive(min, max);
+    }
+    previousValues.push(currentValue);
+    return currentValue;
+  };
+}
+
+function getIdArray (idPhotos) {
+  const generatePhotoId = createRandomIdFromRangeGenerator(1,25);
+  for (let i = 0; i < 25; i++) {
+    idPhotos.push(generatePhotoId());
+  }
+  return idPhotos;
+}
+
 const getRandomArrayElement = (elements) => elements[getRandomIntInclusive(0, elements.length-1)];
 
-const createDescription = () => ({
-  id: getRandomIntInclusive(1, 25),
-  url: `photos/${  getRandomIntInclusive(1,25)  }.jpg`,
+const createPhoto = (id) => ({
+  id,
+  url: `photos/${  id  }.jpg`,
   description: getRandomArrayElement(DESCRIPTIONS),
   likes: getRandomIntInclusive(15, 200),
   comment: {
-    id: getRandomIntInclusive(1,1000),
+    id,
     avatar: `img/avatar-${  getRandomIntInclusive(1,6)  }.svg`,
     message: getRandomArrayElement(MESSAGES),
     name: getRandomArrayElement(NAMES),
   },
 });
 
-const simmularDescriptions = Array.from({length:25}, createDescription);
+const createPhotos = (count) => {
+  const PHOTOS = [];
+  const idPhotos = [];
+  for (let i = 0; i < count; i++) {
+    PHOTOS.push(createPhoto(getIdArray(idPhotos)[i]));
+  }
+  return PHOTOS;
+};
 
-simmularDescriptions();
+createPhotos(25);
 
 checkStringLength('sdfgh', 10);
