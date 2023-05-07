@@ -1,5 +1,7 @@
 import { getRandomIntInclusive, getRandomArrayElement, getRandomIdArray, checkStringLength } from './util.js';
 
+const COUNT_PHOTOS = 25;
+
 const DESCRIPTIONS = [
   'Я на море',
   'Отдыхаю',
@@ -34,30 +36,41 @@ const NAMES = [
   'Кира',
 ];
 
+const createComment = (id) => ({
+  id,
+  avatar: `img/avatar-${  getRandomIntInclusive(1,6)  }.svg`,
+  message: getRandomArrayElement(MESSAGES),
+  name: getRandomArrayElement(NAMES),
+});
+
+const createComments = (count) => {
+  const comments =[];
+  const idComments = [];
+  for (let i = 0; i < count; i++) {
+    comments.push(createComment(getRandomIdArray(idComments, 1000)[i]));
+  }
+  return comments;
+};
+
 const createPhoto = (id) => ({
   id,
   url: `photos/${  id  }.jpg`,
   description: getRandomArrayElement(DESCRIPTIONS),
   likes: getRandomIntInclusive(15, 200),
-  comment: {
-    id,
-    avatar: `img/avatar-${  getRandomIntInclusive(1,6)  }.svg`,
-    message: getRandomArrayElement(MESSAGES),
-    name: getRandomArrayElement(NAMES),
-  },
+  comment: createComments(getRandomIntInclusive(1,4)),
 });
 
 const createPhotos = (count) => {
   const PHOTOS = [];
   const idPhotos = [];
   for (let i = 0; i < count; i++) {
-    PHOTOS.push(createPhoto(getRandomIdArray(idPhotos)[i]));
+    PHOTOS.push(createPhoto(getRandomIdArray(idPhotos, COUNT_PHOTOS)[i]));
   }
   return PHOTOS;
 };
 
 checkStringLength('sdfgh', 10);
 
-const generatePhotos = createPhotos(25);
+const generatePhotos = createPhotos(COUNT_PHOTOS);
 
 export {generatePhotos};
