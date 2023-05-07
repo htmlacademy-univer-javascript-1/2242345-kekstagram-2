@@ -24,9 +24,9 @@ function createRandomIdFromRangeGenerator(min, max) {
   };
 }
 
-function getRandomIdArray (idPhotos) {
-  const generatePhotoId = createRandomIdFromRangeGenerator(1,25);
-  for (let i = 0; i < 25; i++) {
+function getRandomIdArray (idPhotos, length) {
+  const generatePhotoId = createRandomIdFromRangeGenerator(1,length);
+  for (let i = 0; i < length; i++) {
     idPhotos.push(generatePhotoId());
   }
   return idPhotos;
