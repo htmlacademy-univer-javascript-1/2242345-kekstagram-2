@@ -24,12 +24,13 @@ function createRandomIdFromRangeGenerator(min, max) {
   };
 }
 
-function getRandomIdArray (idPhotos, length) {
-  const generatePhotoId = createRandomIdFromRangeGenerator(1,length);
+function getRandomIdArray (length) {
+  const idArray = [];
+  const generateId = createRandomIdFromRangeGenerator(1,length);
   for (let i = 0; i < length; i++) {
-    idPhotos.push(generatePhotoId());
+    idArray.push(generateId());
   }
-  return idPhotos;
+  return idArray;
 }
 
 const getRandomArrayElement = (elements) => elements[getRandomIntInclusive(0, elements.length-1)];
