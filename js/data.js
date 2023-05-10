@@ -10,6 +10,10 @@ const DESCRIPTIONS = [
   'Красивое описание',
   'С котанами',
   'Живу лучшую из 9 жизней',
+  'Ауф',
+  'Мяу',
+  'Моя лучшая фотография',
+  'Мама сказала, что я здесь красивый',
 ];
 
 const MESSAGES = [
@@ -61,7 +65,7 @@ const createPhoto = (id, url) => ({
   url: `photos/${  url  }.jpg`,
   description: getRandomArrayElement(DESCRIPTIONS),
   likes: getRandomIntInclusive(15, 200),
-  comment: createComments(getRandomIntInclusive(1,4)),
+  comments: createComments(getRandomIntInclusive(1,4)),
 });
 
 const createPhotos = (count) => {
