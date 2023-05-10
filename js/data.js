@@ -10,6 +10,10 @@ const DESCRIPTIONS = [
   'Красивое описание',
   'С котанами',
   'Живу лучшую из 9 жизней',
+  'Ауф',
+  'Мяу',
+  'Моя лучшая фотография',
+  'Мама сказала, что я здесь красивый',
 ];
 
 const MESSAGES = [
@@ -36,6 +40,9 @@ const NAMES = [
   'Кира',
 ];
 
+let countCommentsId = 0;
+const commentsId = getRandomIdArray(100);
+
 const createComment = (id) => ({
   id,
   avatar: `img/avatar-${  getRandomIntInclusive(1,6)  }.svg`,
@@ -45,26 +52,29 @@ const createComment = (id) => ({
 
 const createComments = (count) => {
   const comments =[];
-  const idComments = [];
-  for (let i = 0; i < count; i++) {
-    comments.push(createComment(getRandomIdArray(idComments, 1000)[i]));
+
+  for (let i = countCommentsId; i < countCommentsId + count; i++) {
+    comments.push(createComment(commentsId[i]));
   }
+  countCommentsId += count;
   return comments;
 };
 
-const createPhoto = (id) => ({
+const createPhoto = (id, url) => ({
   id,
-  url: `photos/${  id  }.jpg`,
+  url: `photos/${  url  }.jpg`,
   description: getRandomArrayElement(DESCRIPTIONS),
   likes: getRandomIntInclusive(15, 200),
-  comment: createComments(getRandomIntInclusive(1,4)),
+  comments: createComments(getRandomIntInclusive(1,4)),
 });
 
 const createPhotos = (count) => {
   const PHOTOS = [];
-  const idPhotos = [];
+  const photosId = getRandomIdArray(25);
+  const url = getRandomIdArray(25);
+
   for (let i = 0; i < count; i++) {
-    PHOTOS.push(createPhoto(getRandomIdArray(idPhotos, COUNT_PHOTOS)[i]));
+    PHOTOS.push(createPhoto(photosId[i], url[i]));
   }
   return PHOTOS;
 };
