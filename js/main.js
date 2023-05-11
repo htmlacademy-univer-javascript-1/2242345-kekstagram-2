@@ -1,5 +1,5 @@
 import './util.js';
 // import { generatePhotos } from './data.js';
-import './prewiew.js';
+import './preview.js';
 import './photo.js';
 
