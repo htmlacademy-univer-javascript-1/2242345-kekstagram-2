@@ -33,8 +33,10 @@ const getPhotoData = (id) => {
 };
 
 const onPreviewClick = (evt) => {
-  const photoData = getPhotoData(parseInt(evt.target.parentNode.dataset.id, 10));
-  openBigPicture(photoData);
+  if(evt.target.classList.contains('picture__img')) {
+    const photoData = getPhotoData(parseInt(evt.target.parentNode.dataset.id, 10));
+    openBigPicture(photoData);
+  }
 };
 
 pictures.addEventListener('click', onPreviewClick);
