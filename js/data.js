@@ -65,7 +65,7 @@ const createPhoto = (id, url) => ({
   url: `photos/${  url  }.jpg`,
   description: getRandomArrayElement(DESCRIPTIONS),
   likes: getRandomIntInclusive(15, 200),
-  comments: createComments(getRandomIntInclusive(1,4)),
+  comments: createComments(getRandomIntInclusive(1,15)),
 });
 
 const createPhotos = (count) => {
