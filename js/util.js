@@ -35,4 +35,6 @@ function getRandomIdArray (length) {
 
 const getRandomArrayElement = (elements) => elements[getRandomIntInclusive(0, elements.length-1)];
 
-export {getRandomIntInclusive, getRandomIdArray, getRandomArrayElement, checkStringLength};
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export {getRandomIntInclusive, getRandomIdArray, getRandomArrayElement, checkStringLength, isEscapeKey};
