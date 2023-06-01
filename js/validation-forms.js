@@ -7,7 +7,7 @@ const pristine = new Pristine(imgForms, {
   errorClass: 'img-upload__field-wrapper--invalid',
   successClass: 'img-upload__field-wrapper--valid',
   errorTextParent: 'img-upload__field-wrapper',
-  // errorTextTag: 'p',
+  errorTextTag: 'p',
   errorTextClass: 'img-upload__error-text'
 });
 

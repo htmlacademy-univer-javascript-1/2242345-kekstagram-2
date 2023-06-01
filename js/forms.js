@@ -7,7 +7,6 @@ const scaleControl = imgEditingForm.querySelector('.scale__control--value');
 const uploadImg = imgEditingForm.querySelector('.img-upload__preview img');
 const effectLevelValue = imgEditingForm.querySelector('.effect-level__value');
 const filterEffectNone = imgEditingForm.querySelector('#effect-none');
-// const filterEffectChrome = imgEditingForm.querySelector('#effect-chrome');
 const textHashtags = imgEditingForm.querySelector('.text__hashtags');
 const textDescription = imgEditingForm.querySelector('.text__description');
 const uploadCancelButton = imgEditingForm.querySelector('#upload-cancel');
