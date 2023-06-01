@@ -1,5 +1,6 @@
 import { isEscapeKey } from './util.js';
 import './validation-forms.js';
+import './scale-control.js';
 
 const uploadFileButton = document.querySelector('#upload-file');
 const imgEditingForm = document.querySelector('.img-upload__overlay');
@@ -36,9 +37,7 @@ const onDescriptionEscKeydown = (evt) => {
   }
 };
 
-const closeUploadForm = () => {
-  imgEditingForm.classList.add('hidden');
-  document.body.classList.remove('modal-open');
+const resetValues = () => {
   uploadFileButton.value = '';
   scaleControl.value = '100%';
   uploadImg.src = '';
@@ -46,6 +45,12 @@ const closeUploadForm = () => {
   filterEffectNone.setAttribute('checked', 'true');
   textHashtags.value = '';
   textDescription.value = '';
+};
+
+const closeUploadForm = () => {
+  imgEditingForm.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+  resetValues();
   textHashtags.removeEventListener('keydown', onTagsEscKeydown);
   textDescription.removeEventListener('keydown', onDescriptionEscKeydown);
   document.removeEventListener('keydown', onPopupEscKeydown);
