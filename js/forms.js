@@ -1,6 +1,7 @@
 import { isEscapeKey } from './util.js';
 import './validation-forms.js';
 import './scale-control.js';
+import './effects.js';
 
 const uploadFileButton = document.querySelector('#upload-file');
 const imgEditingForm = document.querySelector('.img-upload__overlay');
