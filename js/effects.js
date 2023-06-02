@@ -2,6 +2,7 @@ const imgUploadPreview = document.querySelector('.img-upload__preview');
 const effectLevelSlider = document.querySelector('.effect-level__slider');
 const effectLevelValue = document.querySelector('.effect-level__value');
 const effectsList = document.querySelector('.effects__list');
+const effectLevel = document.querySelector('.effect-level');
 
 const effects = {
   none: {
@@ -76,9 +77,9 @@ const onEffectChange = (evt) => {
   currentEffect = selectedEffect;
 
   if (selectedEffect === 'none') {
-    effectLevelSlider.classList.add('hidden');
+    effectLevel.classList.add('hidden');
   } else {
-    effectLevelSlider.classList.remove('hidden');
+    effectLevel.classList.remove('hidden');
   }
 
   imgUploadPreview.className = `img-upload__preview effects__preview--${selectedEffect}`;
@@ -119,4 +120,4 @@ updateEffectLevel(100);
 
 // Выбор эффекта "Оригинал" по умолчанию при открытии формы
 document.querySelector('.effects__radio[value="none"]').checked = true;
-effectLevelSlider.classList.add('hidden');
+effectLevel.classList.add('hidden');
