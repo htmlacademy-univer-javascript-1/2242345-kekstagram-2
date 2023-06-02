@@ -395,7 +395,7 @@ main {
 
 
 /**
- * Кнопки изменения масштаба изобраения
+ * Кнопки изменения масштаба изображения
  */
 
 .img-upload__scale {
@@ -708,6 +708,18 @@ main {
   color: #000000;
 
   border-radius: 5px;
+}
+
+.img-upload__error-text {
+  width: 450px;
+
+  margin: 0 auto;
+  margin-bottom: 20px;
+
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+  color: #ee1515;
 }
 
 

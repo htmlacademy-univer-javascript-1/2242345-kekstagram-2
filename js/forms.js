@@ -1,5 +1,7 @@
 import { isEscapeKey } from './util.js';
 import './validation-forms.js';
+import './scale-control.js';
+import './effects.js';
 
 const uploadFileButton = document.querySelector('#upload-file');
 const imgEditingForm = document.querySelector('.img-upload__overlay');
@@ -7,7 +9,6 @@ const scaleControl = imgEditingForm.querySelector('.scale__control--value');
 const uploadImg = imgEditingForm.querySelector('.img-upload__preview img');
 const effectLevelValue = imgEditingForm.querySelector('.effect-level__value');
 const filterEffectNone = imgEditingForm.querySelector('#effect-none');
-// const filterEffectChrome = imgEditingForm.querySelector('#effect-chrome');
 const textHashtags = imgEditingForm.querySelector('.text__hashtags');
 const textDescription = imgEditingForm.querySelector('.text__description');
 const uploadCancelButton = imgEditingForm.querySelector('#upload-cancel');
@@ -37,9 +38,7 @@ const onDescriptionEscKeydown = (evt) => {
   }
 };
 
-const closeUploadForm = () => {
-  imgEditingForm.classList.add('hidden');
-  document.body.classList.remove('modal-open');
+const resetValues = () => {
   uploadFileButton.value = '';
   scaleControl.value = '100%';
   uploadImg.src = '';
@@ -47,6 +46,12 @@ const closeUploadForm = () => {
   filterEffectNone.setAttribute('checked', 'true');
   textHashtags.value = '';
   textDescription.value = '';
+};
+
+const closeUploadForm = () => {
+  imgEditingForm.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+  resetValues();
   textHashtags.removeEventListener('keydown', onTagsEscKeydown);
   textDescription.removeEventListener('keydown', onDescriptionEscKeydown);
   document.removeEventListener('keydown', onPopupEscKeydown);
