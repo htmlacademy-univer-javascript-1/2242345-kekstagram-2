@@ -16,6 +16,7 @@ const errorButton = errorElement.querySelector('.error__button');
 const onSuccessEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
+    // eslint-disable-next-line no-use-before-define
     hideSuccessMessage();
   }
 };
@@ -23,6 +24,7 @@ const onSuccessEscKeydown = (evt) => {
 const onErrorEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
+    // eslint-disable-next-line no-use-before-define
     hideErrorMessage();
   }
 };
