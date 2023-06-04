@@ -23,8 +23,8 @@ const renderPreviews = (similarPhotos) => {
   pictures.appendChild(similarListFragment);
 };
 
-const onPreviewClick = (event) => {
-  const pictureElement = event.target.closest('.picture');
+const onPreviewClick = (evt) => {
+  const pictureElement = evt.target.closest('.picture');
   if (pictureElement) {
     const id = parseInt(pictureElement.dataset.id, 10);
     const photoData = photos.find((photo) => photo.id === id);

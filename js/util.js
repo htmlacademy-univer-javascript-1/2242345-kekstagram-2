@@ -2,14 +2,14 @@ const ALERT_SHOW_TIME = 5000;
 
 const checkStringLength = (string, maxLength) => string.length <= maxLength;
 
-function getRandomIntInclusive(min, max) {
+const getRandomIntInclusive = (min, max) => {
   const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
   const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
   const result = Math.random() * (upper - lower + 1) + lower;
   return Math.floor(result);
-}
+};
 
-function createRandomIdFromRangeGenerator(min, max) {
+const createRandomIdFromRangeGenerator = (min, max) => {
   const previousValues = [];
 
   return function () {
@@ -24,16 +24,25 @@ function createRandomIdFromRangeGenerator(min, max) {
     previousValues.push(currentValue);
     return currentValue;
   };
-}
+};
 
-function getRandomIdArray (length) {
+const getRandomIdArray = (length) => {
   const idArray = [];
-  const generateId = createRandomIdFromRangeGenerator(1,length);
+  const generateId = createRandomIdFromRangeGenerator(0,length-1);
   for (let i = 0; i < length; i++) {
     idArray.push(generateId());
   }
   return idArray;
-}
+};
+
+const getRandomArray = (array) => {
+  const idArray = getRandomIdArray(array.length);
+  const newArray = [];
+  for (let i = 0; i < idArray.length; i++) {
+    newArray.push(array[idArray[i]]);
+  }
+  return newArray;
+};
 
 const getRandomArrayElement = (elements) => elements[getRandomIntInclusive(0, elements.length-1)];
 
@@ -60,4 +69,22 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
-export {getRandomIntInclusive, getRandomIdArray, getRandomArrayElement, checkStringLength, isEscapeKey, showAlert};
+const debounce = (callback, timeoutDelay = 500) => {
+  // Используем замыкания, чтобы id таймаута у нас навсегда приклеился
+  // к возвращаемой функции с setTimeout, тогда мы его сможем перезаписывать
+  let timeoutId;
+
+  return (...rest) => {
+    // Перед каждым новым вызовом удаляем предыдущий таймаут,
+    // чтобы они не накапливались
+    clearTimeout(timeoutId);
+
+    // Затем устанавливаем новый таймаут с вызовом колбэка на ту же задержку
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+
+    // Таким образом цикл «поставить таймаут - удалить таймаут» будет выполняться,
+    // пока действие совершается чаще, чем переданная задержка timeoutDelay
+  };
+};
+
+export {getRandomIntInclusive, getRandomIdArray, getRandomArrayElement, getRandomArray, checkStringLength, isEscapeKey, showAlert, debounce};
