@@ -1,7 +1,9 @@
 const ALERT_SHOW_TIME = 5000;
 
+// Проверка длины строки
 const checkStringLength = (string, maxLength) => string.length <= maxLength;
 
+// Генерация случайного целого числа включительно в заданном диапазоне
 const getRandomIntInclusive = (min, max) => {
   const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
   const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
@@ -9,13 +11,13 @@ const getRandomIntInclusive = (min, max) => {
   return Math.floor(result);
 };
 
+// Генератор случайного уникального идентификатора в заданном диапазоне
 const createRandomIdFromRangeGenerator = (min, max) => {
   const previousValues = [];
 
   return function () {
     let currentValue = getRandomIntInclusive(min, max);
     if (previousValues.length >= (max - min + 1)) {
-      // console.error(`Перебраны все числа из диапазона от ${  min  } до ${  max}`);
       return null;
     }
     while (previousValues.includes(currentValue)) {
@@ -26,15 +28,20 @@ const createRandomIdFromRangeGenerator = (min, max) => {
   };
 };
 
+// Генерация массива случайных уникальных идентификаторов в заданном диапазоне
 const getRandomIdArray = (length) => {
   const idArray = [];
-  const generateId = createRandomIdFromRangeGenerator(0,length-1);
+  const generateId = createRandomIdFromRangeGenerator(0, length - 1);
   for (let i = 0; i < length; i++) {
     idArray.push(generateId());
   }
   return idArray;
 };
 
+// Получение случайного элемента из массива
+const getRandomArrayElement = (elements) => elements[getRandomIntInclusive(0, elements.length - 1)];
+
+// Получение нового массива с элементами в случайном порядке
 const getRandomArray = (array) => {
   const idArray = getRandomIdArray(array.length);
   const newArray = [];
@@ -44,10 +51,10 @@ const getRandomArray = (array) => {
   return newArray;
 };
 
-const getRandomArrayElement = (elements) => elements[getRandomIntInclusive(0, elements.length-1)];
-
+// Проверка, является ли нажатая клавиша Escape
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
+// Отображение всплывающего сообщения на указанное время
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
   alertContainer.style.zIndex = '100';
@@ -69,22 +76,31 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
+// Функция для задержки выполнения колбэка
 const debounce = (callback, timeoutDelay = 500) => {
-  // Используем замыкания, чтобы id таймаута у нас навсегда приклеился
-  // к возвращаемой функции с setTimeout, тогда мы его сможем перезаписывать
+  // Используем замыкание, чтобы id таймаута сохранялось между вызовами функции
   let timeoutId;
 
   return (...rest) => {
-    // Перед каждым новым вызовом удаляем предыдущий таймаут,
-    // чтобы они не накапливались
+    // Перед каждым новым вызовом функции удаляем предыдущий таймаут,
+    // чтобы избежать накопления множества задержек
     clearTimeout(timeoutId);
 
-    // Затем устанавливаем новый таймаут с вызовом колбэка на ту же задержку
+    // Устанавливаем новый таймаут с вызовом колбэка после заданной задержки
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
 
-    // Таким образом цикл «поставить таймаут - удалить таймаут» будет выполняться,
-    // пока действие совершается чаще, чем переданная задержка timeoutDelay
+    // Таким образом, цикл «установить таймаут - удалить таймаут» будет продолжаться,
+    // пока вызовы функции происходят чаще, чем указанная задержка timeoutDelay
   };
 };
 
-export {getRandomIntInclusive, getRandomIdArray, getRandomArrayElement, getRandomArray, checkStringLength, isEscapeKey, showAlert, debounce};
+export {
+  getRandomIntInclusive,
+  getRandomIdArray,
+  getRandomArrayElement,
+  getRandomArray,
+  checkStringLength,
+  isEscapeKey,
+  showAlert,
+  debounce
+};

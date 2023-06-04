@@ -1,6 +1,7 @@
 import { isEscapeKey } from './util.js';
 import './scale-control.js';
 import './effects.js';
+import { uploadPhoto } from './upload-photo.js';
 
 const uploadFileButton = document.querySelector('#upload-file');
 const imgEditingForm = document.querySelector('.img-upload__overlay');
@@ -11,6 +12,7 @@ const textDescription = imgEditingForm.querySelector('.text__description');
 const uploadCancelButton = imgEditingForm.querySelector('#upload-cancel');
 const effectLevel = document.querySelector('.effect-level');
 
+// Обработчик события нажатия клавиши Escape для закрытия формы
 const onPopupEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
@@ -19,6 +21,7 @@ const onPopupEscKeydown = (evt) => {
   }
 };
 
+// Обработчик события нажатия клавиши Escape для снятия фокуса с поля ввода тегов
 const onTagsEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
@@ -27,6 +30,7 @@ const onTagsEscKeydown = (evt) => {
   }
 };
 
+// Обработчик события нажатия клавиши Escape для снятия фокуса с поля ввода описания
 const onDescriptionEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
@@ -35,6 +39,7 @@ const onDescriptionEscKeydown = (evt) => {
   }
 };
 
+// Сбрасывает значения элементов формы
 const resetValues = () => {
   document.querySelector('.effects__radio[value="none"]').checked = true;
   effectLevel.classList.add('hidden');
@@ -47,6 +52,7 @@ const resetValues = () => {
   textDescription.value = '';
 };
 
+// Закрывает форму
 const closeFormImg = () => {
   imgEditingForm.classList.add('hidden');
   document.body.classList.remove('modal-open');
@@ -55,6 +61,7 @@ const closeFormImg = () => {
   document.removeEventListener('keydown', onPopupEscKeydown);
 };
 
+// Открыват форму
 const openFormImg = () => {
   imgEditingForm.classList.remove('hidden');
   document.body.classList.add('modal-open');
@@ -63,8 +70,15 @@ const openFormImg = () => {
   document.addEventListener('keydown', onPopupEscKeydown);
 };
 
-uploadFileButton.addEventListener('change', openFormImg);
+// Обработчик события выбора файла для загрузки
+const uploadFile = () => {
+  uploadPhoto(uploadFileButton);
+  openFormImg();
+};
 
+uploadFileButton.addEventListener('change', uploadFile);
+
+// Закрывает форму и сбрасывает значения элементов формы
 const closeAndResetForm = () => {
   closeFormImg();
   resetValues();

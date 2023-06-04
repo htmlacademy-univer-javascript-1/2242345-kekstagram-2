@@ -1,3 +1,4 @@
+// Получает данные с сервера
 const getData = (onSuccess, onFail) => {
   fetch('https://26.javascript.pages.academy/kekstagram/data')
     .then((response) => response.json())
@@ -9,6 +10,7 @@ const getData = (onSuccess, onFail) => {
     });
 };
 
+// Отправляет данные на сервер
 const sendData = (onSuccess, onFail, body) => {
   fetch(
     'https://26.javascript.pages.academy/kekstagram',
