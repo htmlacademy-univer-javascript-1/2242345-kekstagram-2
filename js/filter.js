@@ -3,6 +3,7 @@ import { getRandomArray, debounce} from './util.js';
 
 const RERENDER_DELAY = 500;
 const RANDOM_FILTER_COUNT = 10;
+
 const imgFiltersElement = document.querySelector('.img-filters');
 let photos = [];
 let isRendering = false;
@@ -50,7 +51,9 @@ function updateFilteredItems(filterId) {
 function handleFilterChange(evt) {
   const filterButtons = document.querySelectorAll('.img-filters__button');
   filterButtons.forEach((button) => {
-    button.classList.remove('img-filters__button--active');
+    if(button.classList.contains('img-filters__button--active')) {
+      button.classList.remove('img-filters__button--active');
+    }
   });
   evt.target.classList.add('img-filters__button--active');
 

@@ -1,6 +1,10 @@
 import { sendData } from './api.js';
 import { showSuccessMessage, showErrorMessage } from './messages.js';
 
+const RE = /^#[A-Za-zА-яа-яЕё0-9]{1,19}$/; // Регулярное выражение для проверки формата хэштега
+const STRING_LENGTH = 140;
+const TEGS_COUNT = 5;
+
 const imgForms = document.querySelector('#upload-select-image');
 const textHashtags = document.querySelector('.text__hashtags');
 const textDescription = document.querySelector('.text__description');
@@ -16,8 +20,6 @@ const pristine = new Pristine(imgForms, {
   errorTextClass: 'img-upload__error-text'
 });
 
-const re = /^#[A-Za-zА-яа-яЕё0-9]{1,19}$/; // Регулярное выражение для проверки формата хэштега
-
 // Функция для валидации формата хэштегов
 const validateHashtag = (value) => {
   const tags = value.split(' ');
@@ -25,7 +27,7 @@ const validateHashtag = (value) => {
     return true;
   }
   for (let i = 0; i < tags.length; i++) {
-    if (!re.test(tags[i])) {
+    if (!RE.test(tags[i])) {
       return false;
     }
   }
@@ -58,17 +60,17 @@ pristine.addValidator(textHashtags, validateHashtagsUniqueness, 'Не повто
 // Функция для валидации количества хэштегов
 const validateHashtagsCount = (value) => {
   const tags = value.split(' ');
-  return tags.length <= 5;
+  return tags.length <= TEGS_COUNT;
 };
 
 // Добавляем валидатор для проверки количества хэштегов
-pristine.addValidator(textHashtags, validateHashtagsCount, 'Не более 5 тегов!');
+pristine.addValidator(textHashtags, validateHashtagsCount, `Не более ${TEGS_COUNT} тегов!`);
 
 // Функция для валидации длины описания
-const validateDescription = (value) => value.length <= 140;
+const validateDescription = (value) => value.length <= STRING_LENGTH;
 
 // Добавляем валидатор для проверки длины описания
-pristine.addValidator(textDescription, validateDescription, 'Не более 140 символов!');
+pristine.addValidator(textDescription, validateDescription, `Не более ${STRING_LENGTH} символов!`);
 
 const blockSubmitButton = () => {
   submitButton.disabled = true; // Блокируем кнопку отправки формы

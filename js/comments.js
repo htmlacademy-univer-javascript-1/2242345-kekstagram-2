@@ -1,3 +1,5 @@
+const COMMENTS_STEP = 5; // Количество комментариев, отображаемых за один раз
+
 // Получаем необходимые элементы из DOM
 const bigPicture = document.querySelector('.big-picture');
 const commentsCountBlock = bigPicture.querySelector('.social__comment-count');
@@ -6,7 +8,6 @@ const commentsLoaderStep = commentsCountBlock.querySelector('.comments-loader-st
 const commentItem = bigPicture.querySelectorAll('.social__comment');
 const commentsList = bigPicture.querySelector('.social__comments');
 
-const COMMENTS_STEP = 5; // Количество комментариев, отображаемых за один раз
 let comments = []; // Массив с комментариями
 let commentsCounter = 0; // Счетчик количества отображенных комментариев
 

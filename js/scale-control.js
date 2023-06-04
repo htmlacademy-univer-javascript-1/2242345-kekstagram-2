@@ -1,3 +1,6 @@
+const MIN_SCALE_VALUES = 0.25;
+const SCALE_STEP = 0.25;
+
 const scaleControlValue = document.querySelector('.scale__control--value');
 const scaleControlSmaller = document.querySelector('.scale__control--smaller');
 const scaleControlBigger = document.querySelector('.scale__control--bigger');
@@ -14,8 +17,8 @@ const updateScale = () => {
 
 // Уменьшение масштаба
 const decreaseScale = () => {
-  if (scaleValue > 0.25) {
-    scaleValue -= 0.25;
+  if (scaleValue > MIN_SCALE_VALUES) {
+    scaleValue -= SCALE_STEP;
     updateScale();
   }
 };
@@ -23,7 +26,7 @@ const decreaseScale = () => {
 // Увеличение масштаба
 const increaseScale = () => {
   if (scaleValue < 1) {
-    scaleValue += 0.25;
+    scaleValue += SCALE_STEP;
     updateScale();
   }
 };
