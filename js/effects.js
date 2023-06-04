@@ -1,10 +1,4 @@
-const imgUploadPreview = document.querySelector('.img-upload__preview');
-const effectLevelSlider = document.querySelector('.effect-level__slider');
-const effectLevelValue = document.querySelector('.effect-level__value');
-const effectsList = document.querySelector('.effects__list');
-const effectLevel = document.querySelector('.effect-level');
-
-const effects = {
+const EFFECTS = {
   none: {
     filter: '',
     min: 0,
@@ -49,11 +43,17 @@ const effects = {
   },
 };
 
+const imgUploadPreview = document.querySelector('.img-upload__preview');
+const effectLevelSlider = document.querySelector('.effect-level__slider');
+const effectLevelValue = document.querySelector('.effect-level__value');
+const effectsList = document.querySelector('.effects__list');
+const effectLevel = document.querySelector('.effect-level');
+
 let currentEffect = 'none';
 
 // Функция для обновления стилей изображения в соответствии с выбранным эффектом и уровнем интенсивности
 const updateImageStyle = () => {
-  const effect = effects[currentEffect];
+  const effect = EFFECTS[currentEffect];
   const value = effectLevelSlider.noUiSlider.get();
 
   if (currentEffect === 'none') {
@@ -86,14 +86,14 @@ const onEffectChange = (evt) => {
 
   effectLevelSlider.noUiSlider.updateOptions({
     range: {
-      min: effects[selectedEffect].min,
-      max: effects[selectedEffect].max,
+      min: EFFECTS[selectedEffect].min,
+      max: EFFECTS[selectedEffect].max,
     },
-    start: effects[selectedEffect].max,
-    step: effects[selectedEffect].step,
+    start: EFFECTS[selectedEffect].max,
+    step: EFFECTS[selectedEffect].step,
   });
 
-  updateEffectLevel(effects[selectedEffect].max);
+  updateEffectLevel(EFFECTS[selectedEffect].max);
 };
 
 // Инициализация слайдера

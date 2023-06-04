@@ -1,6 +1,12 @@
-import { getRandomIntInclusive, getRandomArrayElement, getRandomIdArray, checkStringLength } from './util.js';
+import { getRandomIntInclusive, getRandomArrayElement, getRandomIdArray } from './util.js';
 
 const COUNT_PHOTOS = 25; // Количество фотографий, которые нужно сгенерировать
+const MIN_COUNT_LIKES = 15;
+const MAX_COUNT_LIKES = 200;
+const MIN_COUNT_COMMENTS = 1;
+const MAX_COUNT_COMMENTS = 15;
+const MAX_LENGTH_ID_COMMENTS = COUNT_PHOTOS*MAX_COUNT_COMMENTS;
+const AVATAR_COUNT = 6;
 
 const DESCRIPTIONS = [
   'Я на море',
@@ -41,12 +47,12 @@ const NAMES = [
 ]; // Массив с именами для комментариев
 
 let countCommentsId = 0; // Счетчик для ID комментариев
-const commentsId = getRandomIdArray(100); // Массив со случайными ID комментариев
+const commentsId = getRandomIdArray(MAX_LENGTH_ID_COMMENTS); // Массив со случайными ID комментариев
 
 // Создает объект комментария
 const createComment = (id) => ({
   id,
-  avatar: `img/avatar-${getRandomIntInclusive(1, 6)}.svg`,
+  avatar: `img/avatar-${getRandomIntInclusive(1, AVATAR_COUNT)}.svg`,
   message: getRandomArrayElement(MESSAGES),
   name: getRandomArrayElement(NAMES),
 });
@@ -67,24 +73,21 @@ const createPhoto = (id, url) => ({
   id,
   url: `photos/${url}.jpg`,
   description: getRandomArrayElement(DESCRIPTIONS),
-  likes: getRandomIntInclusive(15, 200),
-  comments: createComments(getRandomIntInclusive(1, 15)),
+  likes: getRandomIntInclusive(MIN_COUNT_LIKES, MAX_COUNT_LIKES),
+  comments: createComments(getRandomIntInclusive(MIN_COUNT_COMMENTS, MAX_COUNT_COMMENTS)),
 });
 
 // Создает массив фотографий заданного количества
 const createPhotos = (count) => {
-  const PHOTOS = [];
-  const photosId = getRandomIdArray(25);
-  const url = getRandomIdArray(25);
+  const photos = [];
+  const photosId = getRandomIdArray(count);
+  const url = getRandomIdArray(count);
 
   for (let i = 0; i < count; i++) {
-    PHOTOS.push(createPhoto(photosId[i], url[i]));
+    photos.push(createPhoto(photosId[i], url[i]));
   }
-  return PHOTOS;
+  return photos;
 };
-
-// Проверка длины строки
-checkStringLength('sdfgh', 10);
 
 // Генерирует фотографии
 const generatePhotos = createPhotos(COUNT_PHOTOS);

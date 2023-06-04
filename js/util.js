@@ -77,7 +77,7 @@ const showAlert = (message) => {
 };
 
 // Функция для задержки выполнения колбэка
-const debounce = (callback, timeoutDelay = 500) => {
+const debounce = (callback, timeoutDelay) => {
   // Используем замыкание, чтобы id таймаута сохранялось между вызовами функции
   let timeoutId;
 
