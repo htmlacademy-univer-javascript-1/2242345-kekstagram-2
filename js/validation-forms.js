@@ -1,12 +1,12 @@
 import { sendData } from './api.js';
 import { showSuccessMessage, showErrorMessage } from './messages.js';
 
-
 const imgForms = document.querySelector('#upload-select-image');
 const textHashtags = document.querySelector('.text__hashtags');
 const textDescription = document.querySelector('.text__description');
 const submitButton = document.querySelector('#upload-submit');
 
+// Создаем экземпляр Pristine для валидации формы
 const pristine = new Pristine(imgForms, {
   classTo: 'img-upload__field-wrapper',
   errorClass: 'img-upload__field-wrapper--invalid',
@@ -16,8 +16,9 @@ const pristine = new Pristine(imgForms, {
   errorTextClass: 'img-upload__error-text'
 });
 
-const re = /^#[A-Za-zА-яа-яЕё0-9]{1,19}$/;
+const re = /^#[A-Za-zА-яа-яЕё0-9]{1,19}$/; // Регулярное выражение для проверки формата хэштега
 
+// Функция для валидации формата хэштегов
 const validateHashtag = (value) => {
   const tags = value.split(' ');
   if (value === '') {
@@ -31,8 +32,14 @@ const validateHashtag = (value) => {
   return true;
 };
 
-pristine.addValidator(textHashtags, validateHashtag, 'Начните с #, используйте только буквы и цифры, не более 20 символов, хэштеги разделяйте пробелом');
+// Добавляем валидатор для поля ввода хэштегов
+pristine.addValidator(
+  textHashtags,
+  validateHashtag,
+  'Начните с #, используйте только буквы и цифры, не более 20 символов, хэштеги разделяйте пробелом'
+);
 
+// Функция для валидации уникальности хэштегов
 const validateHashtagsUniqueness = (value) => {
   const tags = value.split(' ');
   for (let i = 0; i < tags.length-1; i++) {
@@ -45,45 +52,50 @@ const validateHashtagsUniqueness = (value) => {
   return true;
 };
 
+// Добавляем валидатор для проверки уникальности хэштегов
 pristine.addValidator(textHashtags, validateHashtagsUniqueness, 'Не повторяйте теги!');
 
+// Функция для валидации количества хэштегов
 const validateHashtagsCount = (value) => {
   const tags = value.split(' ');
   return tags.length <= 5;
 };
 
+// Добавляем валидатор для проверки количества хэштегов
 pristine.addValidator(textHashtags, validateHashtagsCount, 'Не более 5 тегов!');
 
+// Функция для валидации длины описания
 const validateDescription = (value) => value.length <= 140;
 
+// Добавляем валидатор для проверки длины описания
 pristine.addValidator(textDescription, validateDescription, 'Не более 140 символов!');
 
 const blockSubmitButton = () => {
-  submitButton.disabled = true;
-  submitButton.textContent = 'Публикую...';
+  submitButton.disabled = true; // Блокируем кнопку отправки формы
+  submitButton.textContent = 'Публикую...'; // Меняем текст кнопки на "Публикую..."
 };
 
 const unblockSubmitButton = () => {
-  submitButton.disabled = false;
-  submitButton.textContent = 'Опубликовать';
+  submitButton.disabled = false; // Разблокируем кнопку отправки формы
+  submitButton.textContent = 'Опубликовать'; // Меняем текст кнопки на "Опубликовать"
 };
 
 const setImgFormSubmit = (onSuccess, onFail) => {
   imgForms.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-    const isValid = pristine.validate();
+    evt.preventDefault(); // Предотвращаем отправку формы
+    const isValid = pristine.validate(); // Проверяем валидность формы
     if (isValid) {
-      blockSubmitButton();
+      blockSubmitButton(); // Блокируем кнопку отправки формы
       sendData(
         () => {
-          onSuccess();
-          showSuccessMessage();
-          unblockSubmitButton();
+          onSuccess(); // Вызываем функцию обработки успешного запроса на сервер
+          showSuccessMessage(); // Отображаем сообщение об успешной операции
+          unblockSubmitButton(); // Разблокируем кнопку отправки формы
         },
         () => {
-          onFail();
-          showErrorMessage();
-          unblockSubmitButton();
+          onFail(); // Вызываем функцию обработки неуспешного запроса на сервер
+          showErrorMessage(); // Отображаем сообщение об ошибке
+          unblockSubmitButton(); // Разблокируем кнопку отправки формы
         },
         new FormData(evt.target),
       );

@@ -1,6 +1,6 @@
 import { getRandomIntInclusive, getRandomArrayElement, getRandomIdArray, checkStringLength } from './util.js';
 
-const COUNT_PHOTOS = 25;
+const COUNT_PHOTOS = 25; // Количество фотографий, которые нужно сгенерировать
 
 const DESCRIPTIONS = [
   'Я на море',
@@ -14,7 +14,7 @@ const DESCRIPTIONS = [
   'Мяу',
   'Моя лучшая фотография',
   'Мама сказала, что я здесь красивый',
-];
+]; // Массив с описаниями фотографий
 
 const MESSAGES = [
   'Всё отлично!',
@@ -23,7 +23,7 @@ const MESSAGES = [
   'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
-];
+]; // Массив с сообщениями для комментариев
 
 const NAMES = [
   'Артём',
@@ -38,20 +38,22 @@ const NAMES = [
   'Костян',
   'Роман',
   'Кира',
-];
+]; // Массив с именами для комментариев
 
-let countCommentsId = 0;
-const commentsId = getRandomIdArray(100);
+let countCommentsId = 0; // Счетчик для ID комментариев
+const commentsId = getRandomIdArray(100); // Массив со случайными ID комментариев
 
+// Создает объект комментария
 const createComment = (id) => ({
   id,
-  avatar: `img/avatar-${  getRandomIntInclusive(1,6)  }.svg`,
+  avatar: `img/avatar-${getRandomIntInclusive(1, 6)}.svg`,
   message: getRandomArrayElement(MESSAGES),
   name: getRandomArrayElement(NAMES),
 });
 
+// Создает массив комментариев заданного количества
 const createComments = (count) => {
-  const comments =[];
+  const comments = [];
 
   for (let i = countCommentsId; i < countCommentsId + count; i++) {
     comments.push(createComment(commentsId[i]));
@@ -60,14 +62,16 @@ const createComments = (count) => {
   return comments;
 };
 
+// Создает объект фотографии
 const createPhoto = (id, url) => ({
   id,
-  url: `photos/${  url  }.jpg`,
+  url: `photos/${url}.jpg`,
   description: getRandomArrayElement(DESCRIPTIONS),
   likes: getRandomIntInclusive(15, 200),
-  comments: createComments(getRandomIntInclusive(1,15)),
+  comments: createComments(getRandomIntInclusive(1, 15)),
 });
 
+// Создает массив фотографий заданного количества
 const createPhotos = (count) => {
   const PHOTOS = [];
   const photosId = getRandomIdArray(25);
@@ -79,8 +83,10 @@ const createPhotos = (count) => {
   return PHOTOS;
 };
 
+// Проверка длины строки
 checkStringLength('sdfgh', 10);
 
+// Генерирует фотографии
 const generatePhotos = createPhotos(COUNT_PHOTOS);
 
-export {generatePhotos};
+export { generatePhotos };

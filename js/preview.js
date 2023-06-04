@@ -5,8 +5,10 @@ const pictureTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture');
 
+// Создание пустого массива для хранения данных фотографий
 let photos = [];
 
+// Рендеринг превью фотографий
 const renderPreviews = (similarPhotos) => {
   photos = similarPhotos;
   const similarListFragment = document.createDocumentFragment();
@@ -23,6 +25,7 @@ const renderPreviews = (similarPhotos) => {
   pictures.appendChild(similarListFragment);
 };
 
+// Обработчик клика на превью фотографии
 const onPreviewClick = (evt) => {
   const pictureElement = evt.target.closest('.picture');
   if (pictureElement) {
@@ -34,6 +37,7 @@ const onPreviewClick = (evt) => {
   }
 };
 
+// Добавление обработчика клика на превью фотографий
 pictures.addEventListener('click', onPreviewClick);
 
 export { renderPreviews };
